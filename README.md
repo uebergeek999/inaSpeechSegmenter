@@ -35,7 +35,7 @@ Not available.
 
 ```bash
 # clone git repository
-$ git clone https://github.com/ina-foss/inaSpeechSegmenter.git
+$ git clone https://github.com/uebergeek999/inaSpeechSegmenterAJA.git
 # create a python 3 virtual environment and activate it
 $ virtualenv -p python3 inaSpeechSegAJAEnv
 $ source inaSpeechSegAJAEnv/bin/activate
