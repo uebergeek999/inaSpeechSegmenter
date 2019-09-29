@@ -29,17 +29,6 @@ $ sudo apt-get install ffmpeg
 ```
 ### PIP installation
 Not available.
-# Simplest installation procedure
-#```bash
-## create a python 3 virtual environement and activate it
-#$ virtualenv -p python3 inaSpeechSegEnv
-#$ source inaSpeechSegEnv/bin/activate
-## install a backend for keras (tensorflow, theano, cntk...)
-#$ pip install tensorflow-gpu # if you wish GPU implementation (recommended if your host has a GPU)
-#$ pip install tensorflow # for a CPU implementation
-## install framework and dependencies
-#$ pip install inaSpeechSegmenter
-#```
 
 ### Installing from from sources
 
