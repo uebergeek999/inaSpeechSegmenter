@@ -4,6 +4,7 @@ inaSpeechSegmenter is a CNN-based audio segmentation toolkit.
 
 inaSpeechSegmenterAJA is Amy J Alexander's hack to allow processing of partial files and skipping gender classification.
 This makes things faster if you don't need the full file analyzed and/or don't need gender analysis
+This makes things faster if you don't need the full file analyzed and/or don't need gender analysis.
 The main functionality of inaSpeechSegmenter is unchanged.
 
 
