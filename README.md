@@ -6,6 +6,7 @@ inaSpeechSegmenterAJA is Amy J Alexander's hack to allow processing of partial f
 This makes things faster if you don't need the full file analyzed and/or don't need gender analysis.
 The main functionality of inaSpeechSegmenter is unchanged.
 
+# The "README" below belongs to inaSpeechSegmenter.  "AJA" revisions and additions are notated where applicable.
 
 It splits audio signals into homogeneous zones of music and speech.
 Speech zones are split into segments tagged using speaker gender (male or female).
