@@ -1,6 +1,10 @@
-# inaSpeechSegmenter
+# inaSpeechSegmenterAJA
 
 inaSpeechSegmenter is a CNN-based audio segmentation toolkit.
+
+inaSpeechSegmenterAJA is Amy J Alexander's hack to allow processing of partial files and skipping gender classification.
+This makes things faster if you don't need the full file analyzed and/or don't need gender analysis
+The main functionality of inaSpeechSegmenter is unchanged.
 
 
 It splits audio signals into homogeneous zones of music and speech.
@@ -24,31 +28,32 @@ Installation of ffmpeg for ubuntu can be done using the following commandline:
 $ sudo apt-get install ffmpeg
 ```
 ### PIP installation
-Simplest installation procedure
-```bash
-# create a python 3 virtual environement and activate it
-$ virtualenv -p python3 inaSpeechSegEnv
-$ source inaSpeechSegEnv/bin/activate
-# install a backend for keras (tensorflow, theano, cntk...)
-$ pip install tensorflow-gpu # if you wish GPU implementation (recommended if your host has a GPU)
-$ pip install tensorflow # for a CPU implementation
-# install framework and dependencies
-$ pip install inaSpeechSegmenter
-```
+Not available.
+# Simplest installation procedure
+#```bash
+## create a python 3 virtual environement and activate it
+#$ virtualenv -p python3 inaSpeechSegEnv
+#$ source inaSpeechSegEnv/bin/activate
+## install a backend for keras (tensorflow, theano, cntk...)
+#$ pip install tensorflow-gpu # if you wish GPU implementation (recommended if your host has a GPU)
+#$ pip install tensorflow # for a CPU implementation
+## install framework and dependencies
+#$ pip install inaSpeechSegmenter
+#```
 
 ### Installing from from sources
 
 ```bash
 # clone git repository
 $ git clone https://github.com/ina-foss/inaSpeechSegmenter.git
-# create a python 3 virtual environement and activate it
-$ virtualenv -p python3 inaSpeechSegEnv
-$ source inaSpeechSegEnv/bin/activate
+# create a python 3 virtual environment and activate it
+$ virtualenv -p python3 inaSpeechSegAJAEnv
+$ source inaSpeechSegAJAEnv/bin/activate
 # install a backend for keras (tensorflow, theano, cntk...)
 $ pip install tensorflow-gpu # if you wish GPU implementation (recommended)
 $ pip install tensorflow # for a CPU implementation
 # install framework and dependencies
-$ cd inaSpeechSegmenter
+$ cd inaSpeechSegmenterAJA
 $ python setup.py install
 ```
 
@@ -58,8 +63,8 @@ $ python setup.py install
 Binary program ina_speech_segmenter.py may be used to segment multimedia archives encoded in any format supported by ffmpeg. It requires input media and output csv files corresponding to the segmentation. Corresponding csv may be visualised using softwares such as https://www.sonicvisualiser.org/
 ```bash
 # get help
-$ ina_speech_segmenter.py --help
-usage: ina_speech_segmenter.py [-h] -i INPUT [INPUT ...] -o OUTPUT_DIRECTORY
+$ ina_speech_segmenterAJA.py --help
+usage: ina_speech_segmenterAJA.py [-h] -i INPUT [INPUT ...] -o OUTPUT_DIRECTORY
 
 Does Speech/Music and Male/Female segmentation. Stores segmentations into CSV
 files
@@ -76,6 +81,13 @@ optional arguments:
                         segmentations have same base name as the corresponding
                         input media, with csv extension. Ex: mymedia.MPG will
                         result in mymedia.csv
+  -d DURATION,          --duration DURATION
+                        AJA addition: optionally analyze only first DURATION seconds of file
+  -n NOGENDER,          --nogender True or False
+                        AJA addition: optionally skip gender analysis (-n True)
+                        Defaults to False (will analyze gender like original package)
+                        Setting nogender to True is faster if you only want to know Speech vs Music.
+                        This option will return "Speech" instead of Male/Female                        
 ```
 ### Using Speech Segmentation API
 

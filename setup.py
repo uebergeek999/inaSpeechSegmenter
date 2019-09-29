@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+# amy j alexander's customization of below scripts and package to
+# 1) allowing analyzing only partial files in ffmpeg mode.
+# 2) allow skipping of gender classification, so only speech vs. music is classified
+# Nothing's been changed within the neural net files.
+########
 # The MIT License
 
 # Copyright (c) 2018 Ina (David Doukhan - http://www.ina.fr/)
@@ -58,7 +63,7 @@ CLASSIFIERS=[
 ]
 
 DESCRIPTION='CNN-based audio segmentation toolkit. Does voice activity detection, speech detection, music detection, speaker gender recognition.'
-LONGDESCRIPTION='''Split audio signal into homogeneous zones of speech and music, and detect speaker gender.  
+LONGDESCRIPTION='''Split audio signal into homogeneous zones of speech and music, and detect speaker gender.
 
 inaSpeechSegmenter has been presented at the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2018 conference in Calgary, Canada. If you use this toolbox in your research, you can cite the following work in your publications :
 
@@ -73,9 +78,9 @@ inaSpeechSegmenter has been presented at the IEEE International Conference on Ac
 }
 ```
 
-inaSpeechSegmenter won MIREX 2018 speech detection challenge.  
-http://www.music-ir.org/mirex/wiki/2018:Music_and_or_Speech_Detection_Results  
-Details on the speech detection submodule can be found bellow:  
+inaSpeechSegmenter won MIREX 2018 speech detection challenge.
+http://www.music-ir.org/mirex/wiki/2018:Music_and_or_Speech_Detection_Results
+Details on the speech detection submodule can be found bellow:
 
 
 ```bibtex
@@ -107,7 +112,7 @@ setup(
     long_description=LONGDESCRIPTION,
     long_description_content_type='text/markdown',
     scripts=[os.path.join('scripts', script) for script in \
-             ['ina_speech_segmenter.py']],
+             ['ina_speech_segmenterAJA.py']],
     classifiers=CLASSIFIERS,
     python_requires='>=3',
 )

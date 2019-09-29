@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+# amy alexander's customization of below scripts and package to
+# 1) allowing analyzing only partial files in ffmpeg mode.
+# 2) allow skipping of gender classification, so only speech vs. music is classified
+# Nothing's been changed within the neural net files.
+########
 # The MIT License
 
 # Copyright (c) 2018 Ina (David Doukhan - http://www.ina.fr/)
@@ -42,7 +47,7 @@ from .viterbi_utils import log_trans_exp, pred2logemission
 
 
 def _wav2feats(wavname):
-    """ 
+    """
     """
     ext = os.path.splitext(wavname)[-1]
     assert ext.lower() == '.wav' or ext.lower() == '.wave'
@@ -107,6 +112,7 @@ def _gender(nn, patches, finite_patches, speechzicseg):
             ret.append((['Female', 'Male'][int(lab2)], start2+start, stop2+start))
     return ret
 
+
 def _binidx2seglist(binidx):
     curlabel = None
     bseg = -1
@@ -129,11 +135,11 @@ class Segmenter:
         """
         p = os.path.dirname(os.path.realpath(__file__)) + '/'
         self.sznn = keras.models.load_model(p + 'keras_speech_music_cnn.hdf5')
-        self.gendernn = keras.models.load_model(p + 'keras_male_female_cnn.hdf5')      
+        self.gendernn = keras.models.load_model(p + 'keras_male_female_cnn.hdf5')
 
 
-    
-    def segmentwav(self, wavname):
+
+    def segmentwav(self, wavname, nogender=False):
         """
         do segmentation
         require input corresponding to wav file sampled at 16000Hz
@@ -143,35 +149,45 @@ class Segmenter:
         mspec, loge = _wav2feats(wavname)
         # perform energy-based activity detection
         vad = _energy_activity(loge)[::2]
-        
+
         # perform speech/music segmentation using only 21 MFC coefficients
         data21, finite = _get_patches(mspec[:, :21], 68, 2)
         assert len(data21) == len(vad), (len(data21), len(vad))
         assert len(finite) == len(data21), (len(data21), len(finite))
         szseg = _speechzic(self.sznn, data21, finite, vad)
-        
+
+        # amy # HACK:
+        if nogender:
+            return [(lab, start * .02, stop * .02) for lab, start, stop in szseg]
+
         data, finite = _get_patches(mspec, 68, 2)
         genderseg = _gender(self.gendernn, data, finite, szseg)
         # TODO: OFFSET MANAGEMENT
         return [(lab, start * .02, stop * .02) for lab, start, stop in genderseg]
 
-    def __call__(self, medianame, ffmpeg='ffmpeg', tmpdir=None):
+    def __call__(self, medianame, ffmpeg='ffmpeg', tmpdir=None, duration=None, nogender=False):
         """
         do segmentation on any kind on media file, including urls
         slower than segmentwav method
         """
         if shutil.which(ffmpeg) is None:
             raise(Exception("""ffmpeg program not found"""))
-        
+
         base, _ = os.path.splitext(os.path.basename(medianame))
 
         with tempfile.TemporaryDirectory(dir=tmpdir) as tmpdirname:
             tmpwav = tmpdirname + '/' + base + '.wav'
-            args = [ffmpeg, '-y', '-i', medianame, '-ar', '16000', '-ac', '1', tmpwav]
+            # amy adds duration hack: you can evaluate first x seconds of file only.
+            # TODO -- maybe switch duration to start and end points
+            if duration:
+                args = [ffmpeg, '-ss', '0', '-t', duration, '-y', '-i', medianame, '-ar', '16000', '-ac', '1', tmpwav]
+
+            else:
+                args = [ffmpeg, '-y', '-i', medianame, '-ar', '16000', '-ac', '1', tmpwav]
             p = Popen(args, stdout=PIPE, stderr=PIPE)
             output, error = p.communicate()
             assert p.returncode == 0, error
-            return self.segmentwav(tmpwav)
+            return self.segmentwav(tmpwav, nogender)
 
 def seg2csv(lseg, fout=None):
     if fout is None:
@@ -181,7 +197,3 @@ def seg2csv(lseg, fout=None):
         with open(fout, 'wt') as fid:
             for lab, beg, end in lseg:
                 fid.write('%s\t%f\t%f\n' % (lab, beg, end))
-
-
-
-
