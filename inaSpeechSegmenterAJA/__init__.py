@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+# amy j alexander's customization of below scripts and package to
+# 1) allowing analyzing only partial files in ffmpeg mode.
+# 2) allow skipping of gender classification, so only speech vs. music is classified
+# Nothing's been changed within the neural net files.
+########
 # The MIT License
 
 # Copyright (c) 2018 Ina (David Doukhan - http://www.ina.fr/)

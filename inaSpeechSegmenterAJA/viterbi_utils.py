@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+# amy alexander's customization of below scripts to handle partial files in ffmpeg mode.
+# nothing's been changed with the neural net files, just the ffmpeg handling.
+########
 # The MIT License
 
 # Copyright (c) 2018 Ina (David Doukhan - http://www.ina.fr/)
