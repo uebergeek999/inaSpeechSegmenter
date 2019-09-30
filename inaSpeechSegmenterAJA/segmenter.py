@@ -180,6 +180,7 @@ class Segmenter:
             # amy adds duration hack: you can evaluate first x seconds of file only.
             # TODO -- maybe switch duration to start and end points
             if duration:
+                duration = str(duration)
                 args = [ffmpeg, '-ss', '0', '-t', duration, '-y', '-i', medianame, '-ar', '16000', '-ac', '1', tmpwav]
 
             else:
