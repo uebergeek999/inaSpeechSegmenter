@@ -29,7 +29,8 @@ Installation of ffmpeg for ubuntu can be done using the following commandline:
 $ sudo apt-get install ffmpeg
 ```
 ### PIP installation
-Not available.
+Not available since inaSpeechSegmenterAJA is just my minor hack of inaSpeechSegmenter. 
+You can install the original https://github.com/ina-foss/inaSpeechSegmenter with pip, however.
 
 ### Installing from from sources
 
