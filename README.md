@@ -46,6 +46,11 @@ $ pip install tensorflow # for a CPU implementation
 $ cd inaSpeechSegmenterAJA
 $ python setup.py install
 ```
+If you have problems with the install, then just install the original from
+https://github.com/ina-foss/inaSpeechSegmenter
+This will get all the prereqs installed.
+Then you can just install inaSpeechSegmenterAJA and scripts/ina_speech_segmenterAJA.py in
+local directories.
 
 ## Using inaSpeechSegmenter
 
