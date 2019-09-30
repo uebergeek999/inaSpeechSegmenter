@@ -29,7 +29,7 @@ Installation of ffmpeg for ubuntu can be done using the following commandline:
 $ sudo apt-get install ffmpeg
 ```
 ### PIP installation
-Not available since inaSpeechSegmenterAJA is just my minor hack of inaSpeechSegmenter. 
+Not available since inaSpeechSegmenterAJA is just my minor hack of inaSpeechSegmenter.
 You can install the original https://github.com/ina-foss/inaSpeechSegmenter with pip, however.
 
 ### Installing from from sources
@@ -78,7 +78,8 @@ optional arguments:
                         input media, with csv extension. Ex: mymedia.MPG will
                         result in mymedia.csv
   -d DURATION,          --duration DURATION
-                        AJA addition: optionally analyze only first DURATION seconds of file
+                        AJA addition: optionally analyze only first DURATION seconds of file.
+                        (Only available for media types that use FFMPEG.)
   -n NOGENDER,          --nogender True or False
                         AJA addition: optionally skip gender analysis (-n True)
                         Defaults to False (will analyze gender like original package)
